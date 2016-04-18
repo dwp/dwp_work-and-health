@@ -1,0 +1,12 @@
+{% macro hidden_text(config) %}
+<details>
+  <summary><span class="summary">{{ config.summary | d('Summary title here') }}</span></summary>
+  <div class="panel {{ config.border_width | d('panel-border-narrow') }}">
+    {% if caller %}
+      {{ caller(config) }}
+    {% else %}
+      <p>{{ config.text | d('You need to provide some text in the config object passed to this macro') }}</p>
+    {% endif %}
+  </div>
+</details>
+{% endmacro %}

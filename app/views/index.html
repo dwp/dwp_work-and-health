@@ -1,4 +1,4 @@
-{% extends "layout.html" %}
+{% extends "layouts/default.html" %}
 
 {% block page_title %}
   GOV.UK prototype kit
@@ -10,54 +10,30 @@
   <div class="grid-row">
     <div class="column-two-thirds">
 
-      <h1 class="heading-xlarge">The GOV.UK prototype kit</h1>
+      <h1 class="heading-xlarge">{{ 'About this journal' | d('My health and work journal') }}</h1>
+
+      <p class="lede">This is your Health and Work Journal. It captures in one place, your past and current situation, your plan to go back to work or stay in work, and all the conversations you're having with everyone who is supporting you to achieve your goals. </p>
 
       <p>
-        This kit lets you rapidly create HTML prototypes of GOV.UK services.
+        This journal is to help you stay focused on your plan, and also saves you having to recount your story every time you seek help from a different support service.
       </p>
 
-      <p>
-        It contains all you need to prototype anything from simple static pages to complex, data-driven transactions.
+      <p>You should update this journal whenever you speak to someone about your health and work situation (whether that's your coach, doctor, employer, or anyone else)</p>
+
+      <p style="margin-bottom: 30px;">
+        {{ elements_button.start({ url: 'journal/understanding/about_me' }) }}
       </p>
 
-      <h2 class="heading-medium">About this page</h2>
-
-      <p>We recommend you add links to your prototype to this page, rather than delete it.
-        You'll find this page in the kit at '/app/views/index.html'.</p>
-      <p>You can change the service name by editing the file '/app/config.js'.</p>
-
-			<h2 class="heading-medium">Examples and documentation</h2>
-
-			<ul class="list list-bullet">
-				<li><a href="/examples">Example pages and patterns</a></li>
-				<li><a href="https://github.com/alphagov/govuk_prototype_kit/tree/master/docs">
-						Read the full documentation</a></li>
-			</ul>
-
-      <h2 class="heading-medium">Other resources</h2>
-
-			<ul class="list list-bullet">
-				<li>
-					<a href="http://govuk-elements.herokuapp.com/snippets/">
-						Guide to GOV.UK Elements
-					</a>
-				</li>
-				<li>
-					<a href="https://www.gov.uk/service-manual">
-						Service design manual
-					</a>
-				</li>
-				<li>
-					<a href="https://www.gov.uk/design-principles">
-						Government Digital Service Design Principles
-					</a>
-				</li>
-			</ul>
+      {% call elements_type.hidden_text({
+          summary: 'Note: This is a trial service'
+        })
+      %}
+        <p>The Health and Work Journal is being tested as a concept with a limited number of people.<p>
+        <p>Would you like to <a href="#">give us some feedback</a>?</p>
+      {% endcall %}
 
     </div>
   </div>
 </main>
 
 {% endblock %}
-
-

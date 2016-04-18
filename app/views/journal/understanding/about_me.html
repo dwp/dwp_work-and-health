@@ -1,0 +1,25 @@
+{% set page = {
+  title: 'About me'
+} %}
+
+{% extends "layouts/default.html" %}
+
+{% block page_title %}
+  {{ page.title  + ' - ' + serviceName }}
+{% endblock %}
+
+{% block content %}
+
+{{ log | safe }}
+
+<main id="content" role="main">
+  <div class="grid-row">
+    <div class="column-two-thirds">
+
+      <h1 class="heading-xlarge">{{ page.title }}</h1>
+
+    </div>
+  </div>
+</main>
+
+{% endblock %}

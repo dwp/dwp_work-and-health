@@ -1,0 +1,3 @@
+{% macro start(config) %}
+  <a class="button button-start" href="{{ config.url | d('#') }}" role="button">{{ config.text | d('Start now') }}</a>
+{% endmacro %}
