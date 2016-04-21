@@ -1,0 +1,53 @@
+{# Elements
+####################################################################}
+
+{#
+/**
+* form group element
+* @method group
+* @param  {Object} config
+* @return {String} rendered form group mark-up string
+*/
+#}
+{% macro group(config) %}
+  <div class="{{ 'form-group' | setClasses(config.metaData) }} {{ (config.id + '_group' if config.id) | attr('id') }}">
+    {% if caller %}
+      {{ caller(config) }}
+    {% endif %}
+  </div>
+{% endmacro %}
+
+{#
+**
+ * label element
+ * @method label
+ * @param  {obj} config object with the data for rendering the label
+ * @return {String}        rendered label element string
+ */
+#}
+{% macro label(config) %}
+  {% if config.text %}
+    <label {{ config.for | attr('for') }} {{ config.id | attr('id') }} class="{{ 'form-label' | setClasses(config.metaData) }}">{{ config.text }}</label>
+  {% else %}
+    {{ 'To render a label you need to pass \'text\' as property of the config' | log | safe }}
+  {% endif %}
+{% endmacro %}
+
+{# Text Input / Control / Field
+####################################################################}
+
+{% macro text_input(config) %}
+  <input type="{{ config.type | d('text') }}" class="{{ 'form-control' | setClasses(config.metaData) }}" {{ (config.name | d(config.id)) | attr('name') }} {{ config.id | attr('id') }}>
+{% endmacro %}
+
+{% macro text_control(config) %}
+    {{ label({ text: config.label.text, for: config.id, id: config.id + '_label' if config.id }) }}
+    {{ text_input({ id: config.id }) }}
+{% endmacro %}
+
+{% macro text_field(config) %}
+  {{ config | log | safe }}
+  {% call(returnedConfig) group(config) %}
+    {{ text_control(config) }}
+  {% endcall %}
+{% endmacro %}

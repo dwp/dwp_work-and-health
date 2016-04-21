@@ -1,7 +1,10 @@
 {% import "macros/govuk_elements/buttons.html" as elements_button %}
 {% import "macros/govuk_elements/typography.html" as elements_type %}
+{% import "macros/govuk_elements/forms.html" as elements_form %}
 
 {% extends "govuk_template.html" %}
+
+{% block page_title %}{{ page.title  + ' - ' + serviceName }}{% endblock %}
 
 {% block head %}
   {% include "includes/head.html" %}
@@ -22,4 +25,33 @@
 {% block body_end %}
   {% include "includes/scripts.html" %}
   <!-- GOV.UK Prototype kit {{releaseVersion}} -->
+{% endblock %}
+
+{% block content %}
+
+    <main id="content" role="main">
+
+    {% block main %}
+      <div class="grid-row">
+
+        <div class="column-{{ page.layout.primary | d('two-thirds' )}}">
+          {% block content_primary %}
+
+          {% endblock %}
+        </div>
+
+        {% if content_secondary %}
+          <div class="column-{{ page.layout.primary | d('one-third' )}}">
+            {% block content_secondary %}
+
+            {% endblock %}
+          </div>
+        {% endif %}
+
+      </div>
+
+    {% endblock %}
+
+    </main>
+
 {% endblock %}

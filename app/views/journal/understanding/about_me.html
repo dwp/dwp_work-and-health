@@ -4,22 +4,39 @@
 
 {% extends "layouts/default.html" %}
 
-{% block page_title %}
-  {{ page.title  + ' - ' + serviceName }}
-{% endblock %}
+{% block content_primary %}
 
-{% block content %}
+  <h1 class="heading-xlarge">{{ page.title }}</h1>
 
-{{ log | safe }}
+  {{
+    elements_form.text_field({
+      id: 'name',
+      label: {
+        text: 'Name and surname'
+      }
+    })
+  }}
 
-<main id="content" role="main">
-  <div class="grid-row">
-    <div class="column-two-thirds">
+  {{
+    elements_form.text_field({
+      id: 'nino',
+      label: {
+        text: 'National insurance number'
+      }
+    })
+  }}
 
-      <h1 class="heading-xlarge">{{ page.title }}</h1>
+  {{
+    elements_form.text_field({
+      id: 'contactdetails',
+      label: {
+        text: 'Contact details'
+      }
+    })
+  }}
 
-    </div>
-  </div>
-</main>
+  {% call elements_form.group() %}
+    {{ elements_button.start({ type: 'submit' }) }}
+  {% endcall %}
 
 {% endblock %}
