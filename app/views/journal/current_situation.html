@@ -1,0 +1,59 @@
+{% set page = {
+  title: 'Current situation'
+} %}
+
+{% extends "layouts/default.html" %}
+
+{% block content_primary %}
+
+  <form action="my_coach" method="post">
+
+    <h1 class="heading-xlarge">{{ page.title }}</h1>
+
+    {{
+      elements_form.textarea_field({
+        id: 'hopetoachieve_month',
+        rows: '5',
+        label: {
+          text: "What I hope to achieve in a months time"
+        }
+      })
+    }}
+
+    {{
+      elements_form.textarea_field({
+        id: 'hopetoachieve_year',
+        rows: '5',
+        label: {
+          text: "What I hope to achieve in a years time"
+        }
+      })
+    }}
+
+    {{
+      elements_form.textarea_field({
+        id: 'interestin',
+        rows: '5',
+        label: {
+          text: "What I am most interested in"
+        }
+      })
+    }}
+
+    {{
+      elements_form.textarea_field({
+        id: 'worriedabout',
+        rows: '5',
+        label: {
+          text: "What I am most worried about at the moment"
+        }
+      })
+    }}
+
+    {% call elements_form.group() %}
+      {{ elements_button.default({ type: 'submit' }) }}
+    {% endcall %}
+
+</form>
+
+{% endblock %}

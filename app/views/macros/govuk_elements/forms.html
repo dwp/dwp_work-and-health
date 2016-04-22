@@ -10,7 +10,7 @@
 */
 #}
 {% macro group(config) %}
-  <div class="{{ 'form-group' | setClasses(config.metaData) }} {{ (config.id + '_group' if config.id) | attr('id') }}">
+  <div class="{{ 'form-group' | setClasses(config.metaData) }}" {{ (config.id + '_group' if config.id) | attr('id') }}>
     {% if caller %}
       {{ caller(config) }}
     {% endif %}
@@ -27,9 +27,9 @@
 #}
 {% macro label(config) %}
   {% if config.text %}
-    <label {{ config.for | attr('for') }} {{ config.id | attr('id') }} class="{{ 'form-label' | setClasses(config.metaData) }}">{{ config.text }}</label>
+    <label for="{{ config.for }}" id="{{ config.id }}" class="{{ 'form-label' | setClasses(config.metaData) }}">{{ config.text }}</label>
   {% else %}
-    {{ 'To render a label you need to pass \'text\' as property of the config' | log | safe }}
+    {{ "To render a label you need to pass 'text' as property of the config" | log | safe }}
   {% endif %}
 {% endmacro %}
 
@@ -37,17 +37,73 @@
 ####################################################################}
 
 {% macro text_input(config) %}
-  <input type="{{ config.type | d('text') }}" class="{{ 'form-control' | setClasses(config.metaData) }}" {{ (config.name | d(config.id)) | attr('name') }} {{ config.id | attr('id') }}>
+  <input type="{{ config.type | d('text') }}" class="{{ 'form-control form-control-text' | setClasses(config.metaData) }}" {{ (config.name | d(config.id)) | attr('name') }} {{ config.id | attr('id') }}>
 {% endmacro %}
 
 {% macro text_control(config) %}
-    {{ label({ text: config.label.text, for: config.id, id: config.id + '_label' if config.id }) }}
-    {{ text_input({ id: config.id }) }}
+    {% set type = 'text' %}
+    {% set input_id = (config.input.id | d(config.id + '_' + type)) %}
+    {{
+      label({
+        text: config.label.text,
+        for: input_id,
+        id: (config.label.id | d(config.id + '_label' if config.id))
+      })
+    }}
+    {{ text_input({ id: input_id }) }}
 {% endmacro %}
 
 {% macro text_field(config) %}
-  {{ config | log | safe }}
-  {% call(returnedConfig) group(config) %}
+  {% call(returnedObj) group(config) %}
     {{ text_control(config) }}
+  {% endcall %}
+{% endmacro %}
+
+{# Textarea Input / Control / Field
+####################################################################}
+
+{#
+/**
+* textarea element
+* @method group
+* @param  {Object} config
+* @return {String} rendered form group mark-up string
+*/
+#}
+{% macro textarea(config) %}
+  <textarea class="{{ 'form-control form-control-textarea' | setClasses(config.metaData) }}" name="{{ config.name | d(config.id)}}" id="{{ config.id }}" cols="{{ config.cols | d('30') }}" rows="{{ config.rows | d('10') }}">{{ config.placeholder if config.placeholder }}</textarea>
+{% endmacro %}
+
+{#
+/**
+* textarea control (composes: label and textarea)
+* @method group
+* @param  {Object} config
+* @return {String} rendered form group mark-up string
+*/
+#}
+{% macro textarea_control(config) %}
+    {% set type = 'textarea' %}
+    {% set textarea_id = config.textarea.id | d(config.id + '_' + type) %}
+    {{
+      label(config.label | deeperMerge({
+        for: config.label.for | d(textarea_id),
+        id: config.label.id | d(config.id + '_label')
+      }))
+    }}
+    {{ textarea(config | merge({ id: config.textarea.id | d(textarea_id) })) }}
+{% endmacro %}
+
+{#
+/**
+* textarea field (composes: group, label, textarea)
+* @method group
+* @param  {Object} config
+* @return {String} rendered form group mark-up string
+*/
+#}
+{% macro textarea_field(config) %}
+  {% call(returnedObj) group(config) %}
+    {{ textarea_control(config) }}
   {% endcall %}
 {% endmacro %}

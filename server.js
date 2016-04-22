@@ -35,7 +35,7 @@ app.set('view engine', 'html');
 app.set('views', [__dirname + '/app/views', __dirname + '/lib/']);
 
 nunjucks.setup({
-  autoescape: true,
+  autoescape: false,
   watch: true,
   noCache: true
 }, app);
@@ -86,7 +86,7 @@ if (typeof(routes) != "function"){
 }
 
 // auto render any view that exists
-app.get(/^\/([^.]+)$/, function (req, res) {
+app.all(/^\/([^.]+)$/, function (req, res) {
 
   var path = (req.params[0]);
 

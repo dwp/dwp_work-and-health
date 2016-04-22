@@ -1,38 +1,38 @@
 {% set page = {
-  title: 'About me'
+  title: 'My coach'
 } %}
 
 {% extends "layouts/default.html" %}
 
 {% block content_primary %}
 
-  <form action="my_coach" method="post">
+  <form action="current_situation" method="post">
 
     <h1 class="heading-xlarge">{{ page.title }}</h1>
 
     {{
       elements_form.text_field({
-        id: 'name',
+        id: 'coach_name',
         label: {
-          text: 'Name and surname'
+          text: "My coach's name"
         }
       })
     }}
 
     {{
       elements_form.text_field({
-        id: 'nino',
+        id: 'coach_number',
         label: {
-          text: 'National insurance number'
+          text: "My coach's phone number"
         }
       })
     }}
 
     {{
-      elements_form.text_field({
+      elements_form.textarea_field({
         id: 'contactdetails',
         label: {
-          text: 'Contact details'
+          text: 'My coach\'s contact details'
         }
       })
     }}

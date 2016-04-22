@@ -1,5 +1,5 @@
 {% macro default(config) %}
-  {% set text = config.text | d('Start now') %}
+  {% set text = config.text | d('Continue') %}
   {% set classes = "button" | setClasses(config.metaData) %}
   {% if config.type == "submit" %}
     <input class="{{ classes }}" role="button" type="submit" value="{{ text }}">
@@ -9,5 +9,5 @@
 {% endmacro %}
 
 {% macro start(config) %}
-  {{ default(config | deeperMerge({ metaData: { modifiers: ['start'] } })) }}
+  {{ default(config | deeperMerge({ text: 'Start now', metaData: { modifiers: ['start'] } })) }}
 {% endmacro %}
