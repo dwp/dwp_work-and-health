@@ -1,0 +1,30 @@
+{% set page = {
+  title: serviceName + ' ' + proto.version
+} %}
+
+{% extends "layouts/default.html" %}
+
+{% block content_primary %}
+
+    <p><a href="/" class="link-back">Back</a></p>
+
+    <h1 class="heading-xlarge">{{ proto.version | upperC | trC('-',' ') }}</h1>
+
+    <p>Here is where specific changes or hypotheses related to this version of the prototype will be detailed.</p>
+
+    <h3 class="heading-medium">Hypothesis Cards</h3>
+
+    {{
+      elements_type.list({
+        items: [
+          { text: 'One', url: '#' },
+          { text: 'Two', url: '#' }
+        ]
+      })
+    }}
+
+    <div class="form-group">
+      <p><a href="{{ proto.path }}" class="button">View this prototype</a></p>
+    </div>
+
+{% endblock %}

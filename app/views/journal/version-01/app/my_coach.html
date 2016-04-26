@@ -1,0 +1,49 @@
+{% set page = {
+  title: 'My coach'
+} %}
+
+{% extends "layouts/default.html" %}
+
+{% block content_primary %}
+
+  <form action="current_situation" method="post">
+
+    <h1 class="heading-xlarge">{{ page.title }}</h1>
+
+    {{
+      elements_form.text_field({
+        id: 'coach_name',
+        label: {
+          text: "My coach's name"
+        }
+      })
+    }}
+
+    {{
+      elements_form.text_field({
+        id: 'coach_number',
+        label: {
+          text: "My coach's phone number"
+        }
+      })
+    }}
+
+    {{
+      elements_form.textarea_field({
+        id: 'contactdetails',
+        label: {
+          text: 'My coach\'s contact details'
+        },
+        metaData: {
+          modifiers: ['full']
+        }
+      })
+    }}
+
+    {% call elements_form.group() %}
+      {{ elements_button.default({ type: 'submit' }) }}
+    {% endcall %}
+
+</form>
+
+{% endblock %}

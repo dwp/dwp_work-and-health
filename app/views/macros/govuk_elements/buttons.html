@@ -1,0 +1,13 @@
+{% macro default(config) %}
+  {% set text = config.text | d('Continue') %}
+  {% set classes = "button" | setClasses(config.metaData) %}
+  {% if config.type == "submit" %}
+    <input class="{{ classes }}" role="button" type="submit" value="{{ text }}">
+  {% else %}
+    <a class="{{ classes }}" href="{{ config.url | d('#') }}" role="button">{{ text }}</a>
+  {% endif %}
+{% endmacro %}
+
+{% macro start(config) %}
+  {{ default(config | deeperMerge({ text: 'Start now', metaData: { modifiers: ['start'] } })) }}
+{% endmacro %}

@@ -1,0 +1,11 @@
+// to namespace css to a specifc version of the prototype, simply
+// nest the selectors within the version class that get's automatically
+// output onto the body element. For example:
+//
+// .version-01 {
+//   .form-group {
+//     display: block;
+//   }
+// }
+//
+// outputs: .version-01 .form-group { display block; }
