@@ -37,7 +37,7 @@
 ####################################################################}
 
 {% macro text_input(config) %}
-  <input type="{{ config.type | d('text') }}" class="{{ 'form-control form-control-text' | setClasses(config.metaData) }}" {{ (config.name | d(config.id)) | attr('name') }} {{ config.id | attr('id') }}>
+  <input type="{{ config.type | d('text') }}" class="{{ 'form-control' | setClasses( config.metaData | deeperMerge({ metaData: { classes: ['form-control-text'] } }) ) }}" {{ (config.name | d(config.id)) | attr('name') }} {{ config.id | attr('id') }}>
 {% endmacro %}
 
 {% macro text_control(config) %}
@@ -71,7 +71,7 @@
 */
 #}
 {% macro textarea(config) %}
-  <textarea class="{{ 'form-control form-control-textarea' | setClasses(config.metaData) }}" name="{{ config.name | d(config.id)}}" id="{{ config.id }}" cols="{{ config.cols | d('30') }}" rows="{{ config.rows | d('10') }}">{{ config.placeholder if config.placeholder }}</textarea>
+  <textarea class="{{ 'form-control' | setClasses( config.metaData | deeperMerge({ metaData: { classes: ['form-control-textarea'] } }) ) }}" name="{{ config.name | d(config.id)}}" id="{{ config.id }}" cols="{{ config.cols | d('30') }}" rows="{{ config.rows | d('10') }}">{{ config.placeholder if config.placeholder }}</textarea>
 {% endmacro %}
 
 {#
