@@ -4,6 +4,8 @@
 
 {% extends "govuk_template.html" %}
 
+{% block body_classes %}{{ proto.version | trC(' ',"-") | lower }}{% endblock %}
+
 {% block page_title %}{{ page.title  + ' - ' + serviceName }}{% endblock %}
 
 {% block head %}

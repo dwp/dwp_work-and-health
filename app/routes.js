@@ -8,8 +8,8 @@ var express = require('express'),
     config = require(__dirname + '/config');
 
 var protoPaths = {
-  version: '/views/journal/:version',                     // e.g '/journal/alpha-01/'
-  step: '/views/journal/:version/app/:step',              // e.g '/journal/alpha-01/app/address'
+  version: '/journal/:version*',                     // e.g '/journal/alpha-01/'
+  step: '/journal/:version*/app/:step',              // e.g '/journal/alpha-01/app/address'
   appsGlob: [
     __dirname + '/views/journal/**/index.html',
     '!' + __dirname + '/views/journal/**/app/index.html'
@@ -22,7 +22,6 @@ var protoPaths = {
 var getVersionName = function(path) {
   var sp = path.split('/');
   var computedPath = _.join( _.slice( sp, ( _.indexOf(sp, 'views') +1 ) ), '/' );
-  console.log(computedPath);
   return {
     computedPath: computedPath,
     title: computedPath.split('/')[1],
@@ -41,9 +40,7 @@ glob.sync(protoPaths.routesGlob).forEach(function(p){
 router.use(function(req, res, next){
 
   // protoypes config obj
-  var proto = {
-    versions: []
-  }
+  var proto = { versions: [] }
 
   // using glob pattern for the predefined folder structure to grep url and title
   glob.sync(protoPaths.appsGlob).forEach(function(p){
@@ -59,6 +56,19 @@ router.use(function(req, res, next){
 
   next();
 
+});
+
+/**
+ * handle 'phase' (alpha/beta,etc) and 'version' of prototypes by passing some
+ * enhanced context data (useful to nunjucks templates).
+ */
+router.all([protoPaths.version], function(req, res, next){
+  _.merge(res.locals.proto, {
+    version: req.params.version,
+    relAppPath: 'journal/' + req.params.version + '/app',
+    path: '/journal/' + req.params.version + '/app'
+  });
+  next();
 });
 
 router.get('/', function (req, res) {

@@ -2,7 +2,7 @@
   title: 'Start'
 } %}
 
-{% extends "layouts/default.html" %}
+{% extends proto.relAppPath + "/layout.html" %}
 
 {% block content_primary %}
 
@@ -17,7 +17,7 @@
   <p>You should update this journal whenever you speak to someone about your health and work situation (whether that's your coach, doctor, employer, or anyone else)</p>
 
   <p style="margin-bottom: 30px;">
-    {{ elements_button.start({ url: '/start' }) }}
+    {{ elements_button.start({ url: proto.path + '/about_me' }) }}
   </p>
 
   {% call elements_type.hidden_text({
