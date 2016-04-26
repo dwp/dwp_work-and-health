@@ -1,0 +1,19 @@
+{% set page = {
+  title: 'blah'
+} %}
+
+{% extends "layouts/default.html" %}
+
+{% block content_primary %}
+
+  {{ proto | log }}
+
+  <form action="my_coach" method="post">
+
+    <h1 class="heading-xlarge">{{ page.title }}</h1>
+
+    <p>Iteration version</p>
+
+</form>
+
+{% endblock %}

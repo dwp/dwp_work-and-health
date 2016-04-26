@@ -1,0 +1,31 @@
+{% set page = {
+  title: 'Start'
+} %}
+
+{% extends "layouts/default.html" %}
+
+{% block content_primary %}
+
+  <h1 class="heading-xlarge">{{ 'About this journal' | d('My health and work journal') }}</h1>
+
+  <p class="lede">This is your Health and Work Journal. It captures in one place, your past and current situation, your plan to go back to work or stay in work, and all the conversations you're having with everyone who is supporting you to achieve your goals. </p>
+
+  <p>
+    This journal is to help you stay focused on your plan, and also saves you having to recount your story every time you seek help from a different support service.
+  </p>
+
+  <p>You should update this journal whenever you speak to someone about your health and work situation (whether that's your coach, doctor, employer, or anyone else)</p>
+
+  <p style="margin-bottom: 30px;">
+    {{ elements_button.start({ url: '/start' }) }}
+  </p>
+
+  {% call elements_type.hidden_text({
+      summary: 'Note: This is a trial service'
+    })
+  %}
+    <p>The Health and Work Journal is being tested as a concept with a limited number of people.<p>
+    <p>Would you like to <a href="#">give us some feedback</a>?</p>
+  {% endcall %}
+
+{% endblock %}

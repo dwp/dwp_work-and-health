@@ -10,3 +10,35 @@
   </div>
 </details>
 {% endmacro %}
+
+{% macro list(config) %}
+  {% if config.items %}
+    {% for item in config.items %}
+      {% if loop.first %}
+        <ul class="{{ 'list' | setClasses(config.metaData) }}">
+      {% endif %}
+          <li>
+            {% if item.url %}<a href="{{ item.url }}">{% endif %}{{ item.text }}{% if item.url %}</a>{% endif %}
+          </li>
+      {% if loop.last %}
+        </ul>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endmacro %}
+
+{% macro list_bullet(config) %}
+  {{
+    list(config | deeperMerge({
+      metaData: { modifiers: ['bullet'] }
+    }))
+  }}
+{% endmacro %}
+
+{% macro list_number(config) %}
+  {{
+    list(config | deeperMerge({
+      metaData: { modifiers: ['number'] }
+    }))
+  }}
+{% endmacro %}
