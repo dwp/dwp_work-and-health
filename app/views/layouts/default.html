@@ -4,6 +4,7 @@
 
 {% extends "govuk_template.html" %}
 
+{# automatically add version string to body class removing spaces for dashes #}
 {% block body_classes %}{{ proto.version | trC(' ',"-") | lower }}{% endblock %}
 
 {% block page_title %}{{ page.title  + ' - ' + serviceName }}{% endblock %}
@@ -29,6 +30,13 @@
   <!-- GOV.UK Prototype kit {{releaseVersion}} -->
 {% endblock %}
 
+{#
+  By default all content pages will be two thirds + one third.
+  having the the nested block structure makes the pages DRYer.
+  This can be overriden by flat-out using 'content' or
+  you can set page variables for layout.primary & layout.secondary
+  to adjust the two columns if you need to.
+#}
 {% block content %}
 
     <main id="content" role="main">
