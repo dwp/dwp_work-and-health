@@ -11,7 +11,7 @@ var express = require('express'),
 
 // loop each version route file and bring it in passing router and some config
 glob.sync(protoPaths.routesGlob).forEach(function(p){
-  require(p)(router, { protoPaths: protoPaths });
+  require(p)(router, { protoPaths: protoPaths, route: protoPaths.step.replace(':version*', utils.getVersionName(p).title) });
 });
 
 /**
